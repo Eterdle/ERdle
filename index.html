@@ -388,7 +388,6 @@ const characters = [
     { name:'Charlotte',     image:'images/Charlotte_Half.png',     weapons:'Arcana',                                     gender:'Female', range:'Ranged', damageType:'Skill Damage',                       difficulty:'1', releaseYear:2024, releaseSeason:'Official S3' },
     { name:'Chiara',        image:'images/Chiara_Half.png',        weapons:'Rapier',                                     gender:'Female', range:'Melee',  damageType:'Skill Damage',                       difficulty:'2', releaseYear:2020, releaseSeason:'Early Access S1' },
     { name:'Chloe',         image:'images/Chloe_Half.png',         weapons:'Shuriken',                                   gender:'Female', range:'Ranged', damageType:'Basic Attack Damage',                difficulty:'5', releaseYear:2021, releaseSeason:'Early Access S3' },
-    { name:'Coraline',      image:'images/Coraline_Half.png',      weapons:'Arcana',                                     gender:'Female', range:'Ranged', damageType:'Skill Damage',                       difficulty:'4', releaseYear:2026, releaseSeason:'Official S10' },
     { name:'Darko',         image:'images/Darko_Half.png',         weapons:'Bat',                                        gender:'Male',   range:'Melee',  damageType:'Basic Attack Damage',                difficulty:'2', releaseYear:2024, releaseSeason:'Official S4' },
     { name:'Debi & Marlene',image:'images/Debi_&_Marlene_Half.png',weapons:'Two-handed Sword',                           gender:'Female', range:'Melee',  damageType:'Basic Attack Damage',                difficulty:'4', releaseYear:2023, releaseSeason:'Official S1' },
     { name:'Daniel',        image:'images/Daniel_Half.png',        weapons:'Dagger',                                     gender:'Male',   range:'Melee',  damageType:'Basic Attack Damage',                difficulty:'3', releaseYear:2021, releaseSeason:'Early Access S3' },
@@ -399,7 +398,6 @@ const characters = [
     { name:'Estelle',       image:'images/Estelle_Half.png',       weapons:'Axe',                                        gender:'Female', range:'Melee',  damageType:'Skill Damage',                       difficulty:'3', releaseYear:2022, releaseSeason:'Early Access S6' },
     { name:'Eva',           image:'images/Eva_Half.png',           weapons:'Throw',                                      gender:'Female', range:'Ranged', damageType:'Skill Damage',                       difficulty:'1', releaseYear:2021, releaseSeason:'Early Access S3' },
     { name:'Felix',         image:'images/Felix_Half.png',         weapons:'Spear',                                      gender:'Male',   range:'Melee',  damageType:'Basic Attack Damage',                difficulty:'4', releaseYear:2022, releaseSeason:'Early Access S5' },
-    { name:'Fenrir',        image:'images/Ferir_Half.png',         weapons:'Glove',                                      gender:'Male',   range:'Melee',  damageType:'Basic Attack Damage',                difficulty:'2', releaseYear:2026, releaseSeason:'Official S10' },
     { name:'Fiora',         image:'images/Fiora_Half.png',         weapons:'Rapier, Two-handed Sword, Spear',            gender:'Female', range:'Melee',  damageType:'Skill Damage',                       difficulty:'4', releaseYear:2019, releaseSeason:'Early Access S1' },
     { name:'Garnet',        image:'images/Garnet_Half.png',        weapons:'Bat',                                        gender:'Female', range:'Melee',  damageType:'Skill Damage',                       difficulty:'2', releaseYear:2024, releaseSeason:'Official S5' },
     { name:'Hart',          image:'images/Hart_Half.png',          weapons:'Guitar',                                     gender:'Female', range:'Ranged', damageType:'Basic Attack Damage',                difficulty:'4', releaseYear:2020, releaseSeason:'Early Access S1' },
@@ -412,7 +410,7 @@ const characters = [
     { name:'Isaac',         image:'images/Isaac_Half.png',         weapons:'Tonfa',                                      gender:'Male',   range:'Melee',  damageType:'Basic Attack Damage',                difficulty:'1', releaseYear:2022, releaseSeason:'Early Access S7' },
     { name:'Isol',          image:'images/Isol_Half.png',          weapons:'Assault Rifle, Pistol',                      gender:'Male',   range:'Ranged', damageType:'Skill Damage, Basic Attack Damage',  difficulty:'4', releaseYear:2020, releaseSeason:'Early Access S1' },
     { name:'István',        image:'images/Istv3Fn_Half.png',       weapons:'Spear',                                      gender:'Male',   range:'Melee',  damageType:'Basic Attack Damage',                difficulty:'2', releaseYear:2025, releaseSeason:'Official S7' },
-    { name:'Jackie',        image:'images/Jackie_Half.png',        weapons:'Dagger, Dual Swords, Two-handed Sword, Axe', gender:'Female', range:'Melee',  damageType:'Basic Attack Damage',                difficulty:'1', releaseYear:2019, releaseSeason:'Early Access S1' },
+    { name:'Jackie',        image:'images/Jackie_Half.png',        weapons:'Dagger, Dual Swords, Two-handed Sword, Axe', gender:'Female', range:'Melee',  damageType:'Basic Attack Damage',               difficulty:'1', releaseYear:2019, releaseSeason:'Early Access S1' },
     { name:'Jan',           image:'images/Jan_Half.png',           weapons:'Glove, Tonfa',                               gender:'Male',   range:'Melee',  damageType:'Basic Attack Damage, Skill Damage',  difficulty:'5', releaseYear:2021, releaseSeason:'Early Access S3' },
     { name:'Jenny',         image:'images/Jenny_Half.png',         weapons:'Pistol',                                     gender:'Female', range:'Ranged', damageType:'Skill Damage',                       difficulty:'3', releaseYear:2021, releaseSeason:'Early Access S3' },
     { name:'Johann',        image:'images/Johann_Half.png',        weapons:'Arcana',                                     gender:'Male',   range:'Ranged', damageType:'Skill Damage',                       difficulty:'1', releaseYear:2021, releaseSeason:'Early Access S4' },
@@ -562,11 +560,7 @@ function setDifficulty(level) {
 }
 
 function generateHiddenColumns() {
-    hiddenColumns = [...ALL_COLUMNS].sort(()=>0.5-Math.random()).slice(0, Math.floor(Math.random()*3)+2);
-    ALL_COLUMNS.forEach(col => {
-        const th = document.getElementById('th-'+col);
-        if (th) th.classList.toggle('hidden-header', hiddenColumns.includes(col));
-    });
+    hiddenColumns = [...ALL_COLUMNS].sort(()=>0.5-Math.random()).slice(0, Math.floor(Math.random()*2)+2);
 }
 
 function updateTriesDisplay() {
@@ -611,6 +605,7 @@ function startClassicMode() {
     document.getElementById('character-input').classList.remove('daily-mode');
     document.getElementById('submit-btn').classList.remove('daily-submit');
     document.querySelectorAll('th').forEach(th => th.classList.remove('daily-header'));
+    if (selectedDifficulty === 'nightmare') generateHiddenColumns();
     secretCharacter = characters[Math.floor(Math.random()*characters.length)];
     updateTriesDisplay();
     document.getElementById('character-input').focus();
@@ -888,7 +883,7 @@ function resetGameState() {
     document.getElementById('character-input').value='';
     document.getElementById('guess-table-body').innerHTML='';
     closeDropdown(); enableInput(); hideModal();
-    ALL_COLUMNS.forEach(col=>{const th=document.getElementById('th-'+col);if(th)th.classList.remove('hidden-header');});
+
 }
 
 function resetGame() {

@@ -612,6 +612,14 @@ function startClassicMode() {
 }
 
 function startDailyMode() {
+    // Always reset state before loading daily (handles day-change between sessions)
+    guessCount    = 0;
+    guessedNames  = new Set();
+    dailyGuessLog = [];
+    document.getElementById('guess-table-body').innerHTML = '';
+    enableInput();
+    hideModal();
+
     document.getElementById('daily-header').classList.remove('hidden');
     document.getElementById('btn-restart').classList.add('hidden');
     document.getElementById('character-input').classList.add('daily-mode');

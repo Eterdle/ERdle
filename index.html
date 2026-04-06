@@ -127,15 +127,17 @@
         .recommendations-dropdown {
             position: absolute; top: calc(100% + 2px); left: 0; right: 0;
             background-color: rgba(10,10,10,0.95); border-radius: 0 0 10px 10px;
-            max-height: 220px; overflow-y: auto; z-index: 100; display: none;
+            max-height: 320px; overflow-y: auto; z-index: 100; display: none;
         }
         .recommendation-item {
-            display: flex; align-items: center; padding: 8px 12px;
+            display: flex; align-items: center; padding: 10px 14px;
             cursor: pointer; color: #fff; transition: background-color 0.15s;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 15px;
         }
-        .recommendation-item img { width: 36px; height: 36px; border-radius: 4px; object-fit: cover; margin-right: 10px; }
-        .recommendation-item:hover { background-color: rgba(255,255,255,0.1); }
-        .recommendation-item.already-guessed { opacity: 0.4; pointer-events: none; font-style: italic; }
+        .recommendation-item img { width: 48px; height: 48px; border-radius: 6px; object-fit: cover; margin-right: 14px; }
+        .recommendation-item:hover { background-color: rgba(255,255,255,0.12); }
+        .recommendation-item.already-guessed { opacity: 0.35; pointer-events: none; font-style: italic; }
 
         /* ── GUESS SECTION ── */
         .guess-section { width: 100%; margin-top: 12px; }
@@ -294,7 +296,7 @@
         <div id="game-input-area" style="width:100%;">
             <div class="input-container">
                 <input type="text" id="character-input" placeholder="Type character name..."
-                    autocomplete="off" oninput="showRecommendations()">
+                    autocomplete="off" oninput="showRecommendations()" onfocus="showRecommendations()">
                 <button class="submit-btn" id="submit-btn" onclick="submitGuess()">Submit</button>
                 <div class="recommendations-dropdown" id="recommendations"></div>
             </div>
@@ -685,8 +687,9 @@ function startDailyMode() {
 function showRecommendations() {
     const val = document.getElementById('character-input').value.trim().toLowerCase();
     const dd  = document.getElementById('recommendations');
-    if (!val) { dd.style.display='none'; return; }
-    const matches = characters.filter(c=>c.name.toLowerCase().startsWith(val));
+    const matches = val
+        ? characters.filter(c=>c.name.toLowerCase().startsWith(val))
+        : [...characters].sort((a,b)=>a.name.localeCompare(b.name));
     if (!matches.length) { dd.style.display='none'; return; }
     dd.innerHTML = '';
     matches.forEach(c => {

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERdle – Instructions</title>
+    <link rel="icon" href="https://i.postimg.cc/QN0M3zWq/logo3.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0; padding: 20px 12px 40px;
+            background: url('https://i.postimg.cc/3RyHQLMt/Season-3-PC-1920-x-1080.png') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            color: #fff;
+        }
+
+        header { cursor: pointer; margin-bottom: 24px; }
+        header img { width: 85%; max-width: 360px; display: block; margin: 0 auto; }
+
+        .card {
+            background-color: rgba(0,0,0,0.85);
+            border-radius: 16px;
+            padding: 32px 36px;
+            width: 100%;
+            max-width: 820px;
+            margin-bottom: 16px;
+        }
+
+        h1 {
+            font-family: 'Roboto Slab', serif;
+            font-size: 28px;
+            color: #4CAF50;
+            margin: 0 0 6px;
+            text-align: center;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #aaa;
+            font-size: 14px;
+            margin-bottom: 28px;
+        }
+
+        h2 {
+            font-family: 'Roboto Slab', serif;
+            font-size: 18px;
+            color: #4CAF50;
+            margin: 28px 0 12px;
+            border-left: 4px solid #4CAF50;
+            padding-left: 10px;
+        }
+
+        p { color: #ccc; line-height: 1.7; margin: 0 0 10px; font-size: 15px; }
+
+        /* ── COLOR CHIPS ── */
+        .legend { display: flex; flex-direction: column; gap: 10px; margin: 4px 0 8px; }
+        .legend-row { display: flex; align-items: center; gap: 12px; }
+        .chip {
+            width: 36px; height: 36px; border-radius: 6px; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px;
+        }
+        .chip.green  { background-color: #4CAF50; }
+        .chip.orange { background-color: #FFA500; }
+        .chip.black  { background-color: rgba(20,20,20,0.97); border: 1px solid #444; }
+        .legend-text { color: #ccc; font-size: 14px; line-height: 1.5; }
+        .legend-text strong { color: #fff; }
+
+        /* ── COLUMNS TABLE ── */
+        .col-list { display: flex; flex-direction: column; gap: 8px; margin: 4px 0; }
+        .col-row {
+            display: flex; align-items: flex-start; gap: 12px;
+            background: rgba(255,255,255,0.04); border-radius: 8px; padding: 10px 14px;
+        }
+        .col-name {
+            min-width: 130px; font-weight: bold; color: #4CAF50; font-size: 14px; flex-shrink: 0;
+        }
+        .col-desc { color: #bbb; font-size: 14px; line-height: 1.5; }
+        .arrow-tag {
+            display: inline-block; background: #FFA500; color: #fff;
+            border-radius: 4px; padding: 1px 5px; font-size: 12px; font-weight: bold;
+            margin: 0 2px;
+        }
+
+        /* ── DIFFICULTY TABLE ── */
+        .diff-table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+        .diff-table th {
+            background: #1a1a1a; color: #4CAF50; text-align: left;
+            padding: 10px 14px; font-size: 14px; border: 1px solid #333;
+        }
+        .diff-table td {
+            padding: 10px 14px; font-size: 14px; border: 1px solid #333; color: #ccc;
+            vertical-align: top;
+        }
+        .diff-table tr:nth-child(even) td { background: rgba(255,255,255,0.03); }
+        .badge {
+            display: inline-block; padding: 2px 10px; border-radius: 20px;
+            font-size: 12px; font-weight: bold; margin-right: 4px;
+        }
+        .badge.easy      { background: #1b5e20; color: #a5d6a7; }
+        .badge.normal    { background: #1a237e; color: #90caf9; }
+        .badge.hard      { background: #b71c1c; color: #ef9a9a; }
+        .badge.nightmare { background: #4a148c; color: #ce93d8; }
+
+        /* ── DAILY SECTION ── */
+        .daily-highlight {
+            background: rgba(246,168,0,0.1);
+            border: 1px solid rgba(246,168,0,0.4);
+            border-radius: 10px;
+            padding: 14px 18px;
+            margin-top: 8px;
+        }
+        .daily-highlight h2 { color: #f6a800; border-color: #f6a800; }
+
+        /* ── TIPS ── */
+        .tips { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+        .tip {
+            display: flex; align-items: flex-start; gap: 10px;
+            background: rgba(255,255,255,0.04); border-radius: 8px; padding: 10px 14px;
+            color: #bbb; font-size: 14px; line-height: 1.5;
+        }
+        .tip-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+        /* ── BACK BUTTON ── */
+        .back-btn {
+            margin-top: 8px;
+            padding: 12px 32px;
+            border: 2px solid #4CAF50;
+            border-radius: 8px;
+            background: transparent;
+            color: #4CAF50;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            font-family: Arial, sans-serif;
+        }
+        .back-btn:hover { background-color: rgba(76,175,80,0.2); }
+
+        /* ── EXAMPLE ROW ── */
+        .example-wrap { overflow-x: auto; margin-top: 10px; border-radius: 10px; }
+        .example-table { border-collapse: collapse; min-width: 620px; width: 100%; background: rgba(20,20,20,0.97); border-radius: 10px; overflow: hidden; }
+        .example-table th { background: #1a1a1a; color: #4CAF50; padding: 10px 12px; font-size: 13px; border: 1px solid #333; text-align: center; white-space: nowrap; }
+        .example-table td { border: 1px solid #333; text-align: center; padding: 10px 12px; font-size: 13px; color: #fff; }
+        .example-table td.correct { background: #4CAF50; }
+        .example-table td.present { background: #FFA500; }
+        .example-table td.absent  { background: rgba(20,20,20,0.97); }
+        .example-table td img { width: 40px; height: 40px; object-fit: cover; border-radius: 4px; }
+
+        @media (max-width: 600px) {
+            .card { padding: 20px 16px; }
+            h1 { font-size: 22px; }
+            .col-name { min-width: 100px; }
+        }
+    </style>
+</head>
+<body>
+
+<header onclick="window.location.href='index.html'">
+    <img src="https://i.postimg.cc/QN0M3zWq/logo3.png" alt="ERdle Logo">
+</header>
+
+<div class="card">
+    <h1>How to Play</h1>
+    <p class="subtitle">Guess the secret Eternal Return character using color-coded clues</p>
+
+    <!-- HOW TO GUESS -->
+    <h2>Making a Guess</h2>
+    <p>Click the input box — a full character list appears. Type to filter, then click a name or press <strong>Enter</strong> to submit your guess. Each guess fills a row in the table with color hints.</p>
+
+    <!-- COLOR LEGEND -->
+    <h2>Color Meanings</h2>
+    <div class="legend">
+        <div class="legend-row">
+            <div class="chip green"></div>
+            <div class="legend-text"><strong>Green</strong> — Exact match. This attribute is correct.</div>
+        </div>
+        <div class="legend-row">
+            <div class="chip orange"></div>
+            <div class="legend-text"><strong>Orange</strong> — Partial match. At least one weapon or damage type overlaps, or the release year/season is close but not exact.</div>
+        </div>
+        <div class="legend-row">
+            <div class="chip black"></div>
+            <div class="legend-text"><strong>Black</strong> — No match. This attribute is completely wrong.</div>
+        </div>
+    </div>
+
+    <!-- EXAMPLE -->
+    <h2>Example</h2>
+    <p>Suppose the secret character is <strong>Darko</strong> and you guessed <strong>Luke</strong>:</p>
+    <div class="example-wrap">
+        <table class="example-table">
+            <thead>
+                <tr><th>Name</th><th>Image</th><th>Weapons</th><th>Gender</th><th>Range</th><th>Damage Type</th><th>Difficulty</th><th>Release Year</th><th>Release Season</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Luke</td>
+                    <td><img src="images/Luke_Half.png" alt="Luke" onerror="this.style.display='none'"></td>
+                    <td class="correct">Bat</td>
+                    <td class="correct">Male</td>
+                    <td class="correct">Melee</td>
+                    <td class="correct">Basic Attack Damage</td>
+                    <td class="absent">2</td>
+                    <td class="present">↑↑<br>2021</td>
+                    <td class="present">↑↑<br>Early Access S1</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <p style="margin-top:10px; font-size:13px; color:#888;">Weapons, Gender, Range, Damage Type all match ✅ — Difficulty is wrong ❌ — Release Year/Season arrows point ↑ meaning the secret character was released later.</p>
+
+    <!-- COLUMN GUIDE -->
+    <h2>Column Guide</h2>
+    <div class="col-list">
+        <div class="col-row">
+            <div class="col-name">Weapons</div>
+            <div class="col-desc">Green if all weapons match exactly. Orange if at least one weapon is shared with the secret character.</div>
+        </div>
+        <div class="col-row">
+            <div class="col-name">Gender</div>
+            <div class="col-desc">Green (correct) or Black (wrong). No partial match.</div>
+        </div>
+        <div class="col-row">
+            <div class="col-name">Range</div>
+            <div class="col-desc">Melee, Ranged, or Mixed. Green or Black only.</div>
+        </div>
+        <div class="col-row">
+            <div class="col-name">Damage Type</div>
+            <div class="col-desc">Green if exact match. Orange if at least one damage type overlaps.</div>
+        </div>
+        <div class="col-row">
+            <div class="col-name">Difficulty</div>
+            <div class="col-desc">Rated 1–5. Green or Black only.</div>
+        </div>
+        <div class="col-row">
+            <div class="col-name">Release Year</div>
+            <div class="col-desc">
+                Green = exact year.<br>
+                <span class="arrow-tag">↑</span> Orange = secret is 1 year later.<br>
+                <span class="arrow-tag">↑↑</span> Orange = secret is 2+ years later.<br>
+                <span class="arrow-tag">↓</span> Black = secret is 1 year earlier.<br>
+                <span class="arrow-tag">↓↓</span> Black = secret is 2+ years earlier.
+            </div>
+        </div>
+        <div class="col-row">
+            <div class="col-name">Release Season</div>
+            <div class="col-desc">Same arrow system as Release Year but tracks season order. Early Access seasons come before Official seasons.</div>
+        </div>
+    </div>
+</div>
+
+<!-- DIFFICULTY -->
+<div class="card">
+    <h2 style="margin-top:0;">Difficulty Modes</h2>
+    <table class="diff-table">
+        <thead>
+            <tr><th>Mode</th><th>Guesses</th><th>Special Rules</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><span class="badge easy">Easy</span></td>
+                <td>Unlimited</td>
+                <td>All columns visible. Take as long as you need.</td>
+            </tr>
+            <tr>
+                <td><span class="badge normal">Normal</span></td>
+                <td>10</td>
+                <td>All columns visible. Standard experience.</td>
+            </tr>
+            <tr>
+                <td><span class="badge hard">Hard</span></td>
+                <td>5</td>
+                <td>All columns visible. Think carefully before guessing.</td>
+            </tr>
+            <tr>
+                <td><span class="badge nightmare">Nightmare</span></td>
+                <td>5</td>
+                <td>2–3 random columns are hidden every game. Hidden cells show <strong>?</strong> — you won't know which columns are hidden until you start guessing.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- DAILY -->
+<div class="card daily-highlight">
+    <h2 style="margin-top:0;">🗓 Daily Challenge</h2>
+    <div class="col-list">
+        <div class="col-row">
+            <div class="col-name">Same for all</div>
+            <div class="col-desc">Everyone gets the same secret character each day. Resets at midnight.</div>
+        </div>
+        <div class="col-row">
+            <div class="col-name">10 guesses</div>
+            <div class="col-desc">Maximum 10 guesses per day. Make them count.</div>
+        </div>
+        <div class="col-row">
+            <div class="col-name">Streaks</div>
+            <div class="col-desc">Win days in a row to build your streak 🔥. Miss a day or fail and your streak resets.</div>
+        </div>
+        <div class="col-row">
+            <div class="col-name">Share</div>
+            <div class="col-desc">After finishing, copy your emoji result grid and share it with friends without spoiling the answer.</div>
+        </div>
+        <div class="col-row">
+            <div class="col-name">Yesterday</div>
+            <div class="col-desc">The previous day's character is shown at the top of the daily screen.</div>
+        </div>
+    </div>
+</div>
+
+<!-- TIPS -->
+<div class="card">
+    <h2 style="margin-top:0;">Tips</h2>
+    <div class="tips">
+        <div class="tip"><div class="tip-icon">💡</div><div>Start with characters that cover many different weapon types, genders, and release years to narrow things down fast.</div></div>
+        <div class="tip"><div class="tip-icon">🔍</div><div>Already-guessed characters are greyed out in the dropdown so you never accidentally guess the same character twice.</div></div>
+        <div class="tip"><div class="tip-icon">⬛</div><div>In Nightmare mode, some cells show <strong>?</strong> — those columns give no color hint at all. Use the columns that ARE visible to deduce the answer.</div></div>
+        <div class="tip"><div class="tip-icon">📅</div><div>In Daily mode, your progress is saved automatically. If you close the page mid-game, your guesses will still be there when you come back.</div></div>
+        <div class="tip"><div class="tip-icon">↑↑</div><div>Double arrows mean the gap is 2 or more years/seasons away. Single arrow means just 1 away — you're very close!</div></div>
+    </div>
+</div>
+
+<button class="back-btn" onclick="window.location.href='index.html'">← Back to Game</button>
+
+</body>
+</html>
